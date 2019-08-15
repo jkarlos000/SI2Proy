@@ -1,0 +1,66 @@
+﻿@model IEnumerable<SI2Proy.Models.Proveedor>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Proveedors" asp-action="Index" method="get">
+    <p>
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroProveedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroCedulaRuc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreProveedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroProveedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroCedulaRuc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreProveedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.NumeroProveedor">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.NumeroProveedor">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NumeroProveedor">Delete</a>
+
+                   
+
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

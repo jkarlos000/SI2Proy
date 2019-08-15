@@ -1,0 +1,62 @@
+﻿@model SI2Proy.Models.DetallePedido
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>DetallePedido</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CantidadDetalle" class="control-label"></label>
+                <input asp-for="CantidadDetalle" class="form-control" />
+                <span asp-validation-for="CantidadDetalle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecioTotalDetalle" class="control-label"></label>
+                <input asp-for="PrecioTotalDetalle" class="form-control" />
+                <span asp-validation-for="PrecioTotalDetalle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DetallePedidoFinalizado" class="control-label"></label>
+                <input asp-for="DetallePedidoFinalizado" class="form-control" />
+                <span asp-validation-for="DetallePedidoFinalizado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PedidoFk" class="control-label"></label>
+                <select asp-for="PedidoFk" class ="form-control" asp-items="ViewBag.PedidoFk"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModeloProductoFk" class="control-label"></label>
+                <select asp-for="ModeloProductoFk" class ="form-control" asp-items="ViewBag.ModeloProductoFk"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Digitador" class="control-label"></label>
+                <input asp-for="Digitador" class="form-control" />
+                <span asp-validation-for="Digitador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaDigitador" class="control-label"></label>
+                <input asp-for="FechaDigitador" class="form-control" />
+                <span asp-validation-for="FechaDigitador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

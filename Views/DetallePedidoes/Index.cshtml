@@ -1,0 +1,72 @@
+﻿@model IEnumerable<SI2Proy.Models.DetallePedido>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadDetalle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioTotalDetalle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DetallePedidoFinalizado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Digitador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDigitador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModeloProductoFkNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedidoFkNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadDetalle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioTotalDetalle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DetallePedidoFinalizado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Digitador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDigitador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModeloProductoFkNavigation.CodEstructuraMateria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PedidoFkNavigation.NumeroOrdenCompra)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodDetalle">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CodDetalle">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodDetalle">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

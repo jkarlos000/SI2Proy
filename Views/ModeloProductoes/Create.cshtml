@@ -1,0 +1,356 @@
+﻿@model IEnumerable<SI2Proy.Models.MateriaPrima>
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ModeloProducto modelP = new ModeloProducto();
+   // EstructuraMaterialesBom matsB = new EstructuraMaterialesBom();
+}
+
+<h1>Create</h1>
+
+<h4>Modelo de Producto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="NewOrderForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@modelP.LineaProduccionFk" class="control-label"></label>
+                <select id="LineaProduccionFk" asp-for="@modelP.LineaProduccionFk" class="form-control" asp-items="ViewBag.LineaProduccionFk"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="@modelP.CodigoProducto" class="control-label"></label>
+                <input id="CodigoProducto" asp-for="@modelP.CodigoProducto" class="form-control" />
+                <span asp-validation-for="@modelP.CodigoProducto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@modelP.NombreModelo" class="control-label"></label>
+                <input id="NombreModelo" asp-for="@modelP.NombreModelo" class="form-control" />
+                <span asp-validation-for="@modelP.NombreModelo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@modelP.PrecioUnitario" class="control-label"></label>
+                <input id="PrecioUnitario" asp-for="@modelP.PrecioUnitario" class="form-control" />
+                <span asp-validation-for="@modelP.PrecioUnitario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@modelP.Observaciones" class="control-label"></label>
+                <input id="Observaciones" asp-for="@modelP.Observaciones" class="form-control" />
+                <span asp-validation-for="@modelP.Observaciones" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@modelP.Estado" class="control-label"></label>
+                <input id="Estado" asp-for="@modelP.Estado" class="form-control" />
+                <span asp-validation-for="@modelP.Estado" class="text-danger"></span>
+            </div>
+
+            @*Tabla de inventario*@
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InsumoFkNavigation.NombreInsumo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Agregado.NombreMateriaPrima)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UnidadMedidaFkNavigation.NombreUnidadMedida)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.Inventarios[0].)
+                                Nose como poner lo de sobreaprovisionado, Normal y Preveer aprovicionamiento, Urgente Aprovisionamiento
+                            </th>*@
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@for (int i = 0; i < ViewBag.ListOfInventario.Count; i++)*@
+                    @foreach (var item in Model)
+                    {
+                        <tr id="@item.CodMateriaPrima" class="d-lg-table-row" style="cursor:pointer">
+                            <td>
+                                @Html.TextBoxFor(x => item.InsumoFkNavigation.NombreInsumo, new { @class = "form-control", @readonly = "readonly" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(x => item.Agregado.NombreMateriaPrima, new { @class = "form-control", @readonly = "readonly" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(x => item.UnidadMedidaFkNavigation.NombreUnidadMedida, new { @class = "form-control", @readonly = "readonly" })
+                            </td>
+                            <td>
+
+                                <button id="AgregarTablaRow" type="button" class="btn-info">
+                                    Agregar
+                                </button>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+            @*Customer Details*@
+            <h5 style="color:#ff6347">Materia Prima</h5>
+            <hr />
+            <div >
+                <input type="hidden" id="CustomerId" />
+                <div class="form-group">
+                    <label class="col-md-10">
+                        Codigo Materia Prima
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text" id="idMateriaPrima" name="idMateriaPrima" class="form-control" />
+                    </div>
+
+                    <label class="col-md-10">
+                        Materia Prima Seleccionada
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text" id="NombreMateria" name="NombreMateria" placeholder="Materia Prima seleccionada" class="form-control" />
+                    </div>
+                    <label class="col-md-10">
+                        Cantidad
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text" id="stock" name="stock" placeholder="Cantidad" class="form-control" />
+                    </div>
+                    <label class="col-md-10">
+                        Descripcion
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text" id="Descripcion" name="Descripcion" placeholder="Observacion" class="form-control" />
+                    </div>
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label class="control-label">Fecha Vigencia</label>
+                            <input id="FechaVigencia" asp-for="@modelP.FechaDigitador" class="form-control" />
+                            <span asp-validation-for="@modelP.FechaDigitador" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <label id="textlabel">...</label>
+
+            @*Order Details*@
+            <h5 style="margin-top:10px;color:#ff6347">Detalle de Materiales</h5>
+            <hr />
+            <div class="form-horizontal">
+                <div class="col-md-10">
+                    <a id="addToList" class="btn btn-primary">Add To List</a>
+                </div>
+                <table id="detailsTable" class="table">
+                    <thead>
+                        <tr>
+                            <th style="width:30%">Codigo Materia Prima</th>
+                            <th style="width:30%">Materia Prima</th>
+                            <th style="width:15%">Cantidad</th>
+                            <th style="width:25%">Descripcion</th>
+                            <th style="width:25%">Fecha Vigencia</th>
+                            <th style="width:10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div>
+                <button type="reset" class="btn btn-default">Close</button>
+                <button id="saveOrder" type="button" class="btn btn-danger" onclick="return Add();">Save Order</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+
+    <script type="text/javascript">
+        //Show Modal.
+
+
+
+    $(document).ready(function (e) {
+        //function addNewOrder() {
+        //    $("#newOrderModal").show();
+        //}
+        //$("#NewOrder").click(function () {
+        //    $("#newOrderModal").modal();
+        //});
+         $(".d-lg-table-row").on("click", function () {
+                var mates = $(this).attr("id");
+                //$("#newOrderModal #bodyTableModal").attr("id");
+                $('#idMateriaPrima').val(mates);
+
+                $('#textlabel').text(mates);
+         });
+
+        $("#AgregarTablaRow").click(function () {
+            $(".d-lg-table-row").on("click", function () {
+                var mates = $(this).attr("id");
+                //$("#newOrderModal #bodyTableModal").attr("id");
+                $('#idMateriaPrima').val(mates);
+
+                $('#textlabel').text(mates);
+            });
+        });
+
+        //Add Multiple Order.
+        $("#addToList").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#idMateriaPrima").val()) == "" || $.trim($("#stock").val()) == "" || $.trim($("#Descripcion").val()) == ""|| $.trim($("#FechaVigencia").val()) == "") return;
+
+            var i = 0;
+
+            var idMateriaPrima = $("#idMateriaPrima").val(),
+                NombreMateria = $("#NombreMateria").val(),
+                stock = $("#stock").val(),
+                Descripcion = $("#Descripcion").val(),
+                FechaVigencia=$("#FechaVigencia").val(),
+                detailsTableBody = $("#detailsTable tbody");
+
+           //<input type="text" id="idInventario" name="idInventario" class="form-control" />
+            //(parseFloat(price) * parseInt(quantity))
+            var productItem = '<tr><td>' + idMateriaPrima + '</td><td>' + NombreMateria + '</td><td>' + stock + '</td><td>' + Descripcion + '</td><td>' + FechaVigencia+'</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+            detailsTableBody.append(productItem);
+            clearItem();
+        });
+
+        //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+        function clearItem() {
+            $("#idMateriaPrima").val('');
+            $("#NombreMateria").val('');
+            $("#stock").val('');
+            $("#Descripcion").val('');
+            
+        }
+
+        // After Add A New Order In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+
+
+    //    After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(saveModelProductView) {
+
+            //var datos{
+
+            //};
+
+
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',//contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/ModeloProductoes/SaveOrder",
+                data: saveModelProductView,//data: JSON.stringify(data),
+                success: function (result) {
+                    alert(result);
+                    location.href = '@Url.Action("Index", "ModeloProductoes", new { area = "" })';
+                   // location.reload();
+                },
+                error: function () {
+                    alert("Error Aqui!")
+                }
+            });
+        }
+
+       // Collect Multiple Order List For Pass To Controller
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+
+            var orderArr = [];
+            orderArr.length = 0;
+
+            //$("#detailsTable tbody tr").each( function () {
+            //    orderArr.push({
+            //        InventarioFk: $(this).find('td:eq(0)').html(),
+            //        Cantidad: $(this).find('td:eq(2)').html(),
+            //        Observacion: $(this).find('td:eq(3)').html()
+            //        // amount: $(this).find('td:eq(3)').html()
+            //    });
+            //});
+            $.each($("#detailsTable tbody tr"), function () {
+                orderArr.push({
+                    idMateriaPrima: $(this).find('td:eq(0)').html(),
+                    stock: $(this).find('td:eq(2)').html(),
+                    Descripcion: $(this).find('td:eq(3)').html(),
+                    FechaVigencia: $(this).find('td:eq(4)').html()
+                    // amount: $(this).find('td:eq(3)').html()
+                });
+            });
+
+            //alert($("#FechaEntrega").val());
+            //alert($("#FechaEstimadaEntrega").val());
+           // $("#FechaEntrega").val();
+             var saveModelProductView = JSON.stringify({
+                 detalle: orderArr,
+                 LineaProduccionFk: $("#LineaProduccionFk").val(),
+                 CodigoProducto: $("#CodigoProducto").val(),
+                 NombreModelo: $("#NombreModelo").val(),
+                 PrecioUnitario: $("#PrecioUnitario").val(),
+                 Observaciones: $("#Observaciones").val(),
+                 Estado: $("#Estado").val()
+            });
+            //var data = JSON.stringify({
+            //    observacion: $("#Observacion").val()
+            //    //address: $("#Observacion").val(),
+            //   // detalleAprovisionamiento: orderArr
+            //});
+
+            $.when(saveOrder(saveModelProductView)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+//        $("#saveOrder").click(function (e) {
+//            e.preventDefault();
+//            Add();
+//        });
+//        function Add() {
+//    //var res = validate();
+//    //if (res == false) {
+//    //    return false;
+//    //}
+//            var empObj = {
+//        "observacion": $("#Observacion").val()
+//        //Name: $('#Name').val(),
+//        //Age: $('#Age').val(),
+//        //State: $('#State').val(),
+//        //Country: $('#Country').val()
+//    };
+//    $.ajax({
+//        url: "/OrdenAprovisionamientoes/SaveOrder",
+//        data: JSON.stringify(empObj),
+//        type: "POST",
+//        contentType: "application/json;charset=utf-8",
+//        dataType: "json",
+//        success: function (result) {
+//            loadData();
+//            $('#myModal').modal('hide');
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}
+    });
+    </script>
+}

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SI2Proy.Models.Insumo>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Insumoes" asp-action="Index" method="get">
+    <p>
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodInsumo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreInsumo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodInsumo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreInsumo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodInsumo">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CodInsumo">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodInsumo">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

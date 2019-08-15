@@ -1,0 +1,82 @@
+﻿@model IEnumerable<SI2Proy.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Pedidoes" asp-action="Index" method="get">
+    <p>
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroOrdenCompra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroNotaPedido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClienteFkNavigation.Persona.NombreCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEntrega)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VendedorFkNavigation.NombreVendedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedidoFinalizado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroOrdenCompra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroNotaPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClienteFkNavigation.Persona.NombreCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEntrega)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendedorFkNavigation.NombreVendedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PedidoFinalizado)
+            </td>
+            <td>
+
+                @{if (item.PedidoFinalizado.ToString() != "True")
+                    { <a id="PedidoFinalizado" asp-action="Edit" asp-route-id="@item.NumeroOrdenCompra">Entregar Orden</a>} }|
+                <a asp-action="Details" asp-route-id="@item.NumeroOrdenCompra">Details</a> |
+                @{if (item.PedidoFinalizado.ToString() != "True")
+                    { <a asp-action="Delete" asp-route-id="@item.NumeroOrdenCompra">Delete</a>} }|
+                @{if (item.PedidoFinalizado.ToString() != "True")
+                    { <a asp-action="Aprobar" asp-route-id="@item.NumeroOrdenCompra">Delete</a>} }
+
+               
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

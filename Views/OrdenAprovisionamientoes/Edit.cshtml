@@ -1,0 +1,75 @@
+﻿@model SI2Proy.Models.OrdenAprovisionamiento
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>OrdenAprovisionamiento</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="NumeroOrdenAprovisionamiento" />
+            <div class="form-group">
+                <label asp-for="FechaEmision" class="control-label"></label>
+                <input asp-for="FechaEmision" class="form-control" />
+                <span asp-validation-for="FechaEmision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observacion" class="control-label"></label>
+                <input asp-for="Observacion" class="form-control" />
+                <span asp-validation-for="Observacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaEstimadaEntrega" class="control-label"></label>
+                <input asp-for="FechaEstimadaEntrega" class="form-control" />
+                <span asp-validation-for="FechaEstimadaEntrega" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaEntrega" class="control-label"></label>
+                <input asp-for="FechaEntrega" class="form-control" />
+                <span asp-validation-for="FechaEntrega" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aprobado" class="control-label"></label>
+                <input asp-for="Aprobado" class="form-control" />
+                <span asp-validation-for="Aprobado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AprobadoPor" class="control-label"></label>
+                <input asp-for="AprobadoPor" class="form-control" />
+                <span asp-validation-for="AprobadoPor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoEntregado" class="control-label"></label>
+                <input asp-for="EstadoEntregado" class="form-control" />
+                <span asp-validation-for="EstadoEntregado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Digitador" class="control-label"></label>
+                <input asp-for="Digitador" class="form-control" />
+                <span asp-validation-for="Digitador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaDigitador" class="control-label"></label>
+                <input asp-for="FechaDigitador" class="form-control" />
+                <span asp-validation-for="FechaDigitador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

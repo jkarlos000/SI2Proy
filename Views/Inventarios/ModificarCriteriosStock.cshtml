@@ -1,0 +1,45 @@
+﻿@model SI2Proy.Models.Inventario
+
+@{
+    ViewData["Title"] = "ModificarCriteriosStock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ModificarCriteriosStock</h1>
+
+<h4>Inventario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ModificarCriteriosStock">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CodInventario" />
+            <div class="form-group">
+                <label class="control-label">Stock Minimo Esperado (Saldo PRO)</label>
+                <input asp-for="SaldoPro" class="form-control" />
+                <span asp-validation-for="SaldoPro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Cantidad Esperada a Pedir (Pedir Q)</label>
+                <input asp-for="PedirQ" class="form-control" />
+                <span asp-validation-for="PedirQ" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Stock Maximo</label>
+                <input asp-for="StockMaximo" class="form-control" />
+                <span asp-validation-for="StockMaximo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

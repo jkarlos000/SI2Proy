@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "CrearAsociacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Asociar Materia Prima a Inventario</h1>
+<div>
+    <form asp-action="CrearAsociacion">
+        <div class="form-group">
+            <label class="control-label">Materia Prima no Asociada a Control de Inventario</label>
+            <select name="AgregadoFk" class="form-control" asp-items="ViewBag.AgregadoFk"></select>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

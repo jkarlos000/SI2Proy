@@ -1,0 +1,117 @@
+﻿@model SI2Proy.Models.OrdenAprovisionamiento
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>OrdenAprovisionamiento</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumeroOrdenAprovisionamiento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumeroOrdenAprovisionamiento)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaEmision)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaEmision)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AprobadoPor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AprobadoPor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaEstimadaEntrega)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaEstimadaEntrega)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Aprobado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Aprobado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaEntrega)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaEntrega)
+        </dd>
+    </dl>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroOrdenAprovisionamiento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaEmision)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaEstimadaEntrega)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaEntrega)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Aprobado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EstadoEntregado)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DetalleAprovisionamiento)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelI => item.InventarioFkNavigation.AgregadoFkNavigation.CodMateriaPrima)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelI => item.InventarioFkNavigation.AgregadoFkNavigation.NombreMateriaPrima)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelI => item.Cantidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelI => item.InventarioFkNavigation.AgregadoFkNavigation.CodMateriaPrimaNavigation.UnidadMedidaFkNavigation.NombreUnidadMedida)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <dl>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EstadoEntregado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EstadoEntregado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Observacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Observacion)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.NumeroOrdenAprovisionamiento">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

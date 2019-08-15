@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SI2Proy.Models.Inventario>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodInventario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgregadoFkNavigation.NombreMateriaPrima)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgregadoFkNavigation.CodMateriaPrimaNavigation.UnidadMedidaFkNavigation.NombreUnidadMedida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SaldoPro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedirQ)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodInventario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgregadoFkNavigation.NombreMateriaPrima)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgregadoFkNavigation.CodMateriaPrimaNavigation.UnidadMedidaFkNavigation.NombreUnidadMedida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaldoPro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PedirQ)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.CodInventario">Details</a> |
+                <a asp-action="ModificarCriteriosStock" asp-route-id="@item.CodInventario">Modificar Criterios Stock</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

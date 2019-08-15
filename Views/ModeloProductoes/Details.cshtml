@@ -1,0 +1,109 @@
+﻿@model SI2Proy.ViewModels.ModeloProductoView
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ModeloProducto</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Productos.CodigoProducto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Productos.CodigoProducto)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Productos.LineaProduccionFkNavigation.NombreLineaProduccion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Productos.LineaProduccionFkNavigation.NombreLineaProduccion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Productos.NombreModelo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Productos.NombreModelo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Productos.PrecioUnitario)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Productos.PrecioUnitario)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Productos.Observaciones)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Productos.Observaciones)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Productos.Estado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Productos.Estado)
+        </dd>
+    </dl>
+
+    
+    <div class="table">
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.listMats[0].MateriaPrimaFkNavigation.InsumoFkNavigation.NombreInsumo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.listMats[0].MateriaPrimaFkNavigation.Agregado.NombreMateriaPrima)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.listMats[0].CantidadPorProducto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.listMats[0].MateriaPrimaFkNavigation.UnidadMedidaFkNavigation.NombreUnidadMedida)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.listMats[0].FechaVigencia)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.listMats[0].Obligatorio)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.listMats)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.MateriaPrimaFkNavigation.InsumoFkNavigation.NombreInsumo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.MateriaPrimaFkNavigation.Agregado.NombreMateriaPrima)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.CantidadPorProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.MateriaPrimaFkNavigation.UnidadMedidaFkNavigation.NombreUnidadMedida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.FechaVigencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Obligatorio)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+   
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Productos.CodEstructuraMateria">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

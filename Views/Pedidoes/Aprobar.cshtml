@@ -1,0 +1,26 @@
+﻿@model SI2Proy.Models.Pedido
+@{
+    ViewData["Title"] = "Aprobar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+
+    <h1>Entrega de Pedido</h1>
+    <form asp-action="EstadoEntregado">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="hidden" asp-for="NumeroOrdenCompra" />
+            </div>
+        </div>
+
+
+        <div>
+            <input type="submit" value="Registrar Entrega de Pedido" class="btn btn-danger" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+
+
+</div>

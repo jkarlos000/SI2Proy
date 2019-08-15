@@ -1,0 +1,91 @@
+﻿@model IEnumerable<SI2Proy.Models.OrdenAprovisionamiento>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="detailsTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroOrdenAprovisionamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEmision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEstimadaEntrega)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEntrega)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aprobado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoEntregado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroOrdenAprovisionamiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEmision)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEstimadaEntrega)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEntrega)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aprobado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoEntregado)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.NumeroOrdenAprovisionamiento">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.NumeroOrdenAprovisionamiento">Details</a> |
+                    @{if (item.Aprobado.ToString() != "True")
+                        { <a id="delete" asp-action="Delete" asp-route-id="@item.NumeroOrdenAprovisionamiento">Delete</a>} }|
+                    @{if (item.Aprobado.ToString() != "True")
+                        { <a id="Aprobar" asp-action="Aprobar" asp-route-id="@item.NumeroOrdenAprovisionamiento">Aprobar</a>} }
+                    @{if (item.EstadoEntregado.ToString() != "True")
+                        { <a id="EstadoEntregado" asp-action="EstadoEntregado" asp-route-id="@item.NumeroOrdenAprovisionamiento">Entregar Orden</a>} }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $("#delete").attr("disabled", true);
+        });
+
+         $.each($("#detailsTable tbody tr"), function () {
+                orderArr.push({
+                    InventarioFk: $(this).find('td:eq(4)').html(),
+                    Cantidad: $(this).find('td:eq(2)').html(),
+                    Observacion: $(this).find('td:eq(3)').html()
+                    // amount: $(this).find('td:eq(3)').html()
+                });
+            });
+    </script>
+}

@@ -1,0 +1,30 @@
+﻿@model SI2Proy.Models.OrdenAprovisionamiento
+@{
+    ViewData["Title"] = "Aprobar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+    <div>
+
+        <h1>Aprobar</h1>
+        <form asp-action="Aprobar">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="hidden" asp-for="NumeroOrdenAprovisionamiento" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaEstimadaEntrega" class="control-label"></label>
+                    <input asp-for="FechaEstimadaEntrega" class="form-control" />
+                    <span asp-validation-for="FechaEstimadaEntrega" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div>
+                <input type="submit" value="Aprobar" class="btn btn-danger" /> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </form>
+
+
+    </div>

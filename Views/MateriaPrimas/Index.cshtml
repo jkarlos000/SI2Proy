@@ -1,0 +1,74 @@
+﻿@model IEnumerable<SI2Proy.Models.MateriaPrima>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="MateriaPrimas" asp-action="Index" method="get">
+    <p>
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodMateriaPrima)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InsumoFkNavigation.NombreInsumo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Agregado.NombreMateriaPrima)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnidadMedidaFkNavigation.NombreUnidadMedida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodMateriaPrima)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InsumoFkNavigation.NombreInsumo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Agregado.NombreMateriaPrima)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnidadMedidaFkNavigation.NombreUnidadMedida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CodMateriaPrima">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CodMateriaPrima">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CodMateriaPrima">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

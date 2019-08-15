@@ -1,0 +1,388 @@
+﻿@model IEnumerable<SI2Proy.Models.ModeloProducto>
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    // List<Inventario> Inventarios = ViewBag.ListOfInventario;
+    string mat = "";
+    //string descripcion = "";
+    //int InventarioFk = 0;
+    //int cantidad = 0;
+    //int cont = 0;
+    //Model.ListDetalleOrdenAprov = new List<DetalleAprovisionamiento>();
+    //List<DetalleAprovisionamiento> ListaDetalle = new List<DetalleAprovisionamiento>();
+    //DetalleAprovisionamiento DetInventari = new DetalleAprovisionamiento();
+    Pedido orAp = new Pedido();
+}
+
+<h1>Create</h1>
+
+<h4>Detalle Pedido</h4>
+<hr />
+
+@*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+
+
+
+<button style="margin-right:10px" class="btn btn-primary pull-right" id="NewOrder">New Order</button>
+
+@*<a type="button"
+    class="btn"
+    href="#newOrderModal"
+    data-toggle="modal">Click me</a>*@
+
+<h4>Add New Order</h4>
+@*Desing Bootdtrap Modal With Order Form*@
+
+
+<form id="NewOrderForm">
+    <div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <div class="form-group">
+                    <label asp-for="@orAp.FechaEntrega" class="control-label"></label>
+                    <input id="FechaEntrega" asp-for="@orAp.FechaEntrega" class="form-control" />
+                    <span asp-validation-for="@orAp.FechaEntrega" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@orAp.ClienteFkNavigation.NumeroCliente" class="control-label"></label>
+                    <select id="NumeroCliente" asp-for="@orAp.ClienteFkNavigation.NumeroCliente" class="form-control" asp-items="ViewBag.ClienteFk"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@orAp.VendedorFkNavigation.NumeroVendedor" class="control-label"></label>
+                    <select id="NumeroVendedor" asp-for="@orAp.VendedorFkNavigation.NumeroVendedor" class="form-control" asp-items="ViewBag.VendedorFk"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@orAp.Observaciones" class="control-label"></label>
+                    <input id="Observaciones" asp-for="@orAp.Observaciones" class="form-control" />
+                    <span asp-validation-for="@orAp.Observaciones" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+
+        @*Tabla de inventario*@
+        <table class="table" id="tablaModelo">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CodigoProducto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreModelo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PrecioUnitario)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Observaciones)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Inventarios[0].)
+                            Nose como poner lo de sobreaprovisionado, Normal y Preveer aprovicionamiento, Urgente Aprovisionamiento
+                        </th>*@
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@for (int i = 0; i < ViewBag.ListOfInventario.Count; i++)*@
+                @foreach (var item in Model)
+                {
+                    <tr id="@item.CodEstructuraMateria" class="d-lg-table-row" style="cursor:pointer">
+                        <td>
+                            @Html.HiddenFor(x => item.CodigoProducto)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(x => item.NombreModelo, new { @class = "form-control", @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(x => item.PrecioUnitario, new { @class = "form-control", @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(x => item.Observaciones, new { @class = "form-control", @readonly = "readonly" })
+                        </td>
+                        <td>
+
+                            <button id="AgregarTablaRow" type="button" class="btn-info">
+                                Agregar
+                            </button>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+        @*Customer Details*@
+        <h5 style="color:#ff6347">Detalle de Orden de Pedido</h5>
+        <hr />
+
+        <div class="form-horizontal">
+            <input type="hidden" id="CustomerId" />
+            <div class="form-group">
+                <label class="control-label col-md-2">
+                    Codigo Modelo Producto
+                </label>
+                <div class="col-md-4">
+                    <input type="text" id="idInventario" name="idInventario" class="form-control" disabled="disabled" />
+                </div>
+
+                <label class="control-label col-md-2">
+                    Modelo Producto Seleccionado
+                </label>
+                <div class="col-md-4">
+                    <input type="text" id="ModeloProducto" name="ModeloProducto" disabled="disabled" class="form-control" />
+                </div>
+                <label class="control-label col-md-2">
+                    Cantidad
+                </label>
+                <div class="col-md-4">
+                    <input type="text" id="stock" name="stock" placeholder="Cantidad" class="form-control" />
+                </div>
+                <label class="control-label col-md-2">
+                    Precio Unitario
+                </label>
+                <div class="col-md-4">
+                    <input type="text" id="PrecioUnitario" name="PrecioUnitario" disabled="disabled" class="form-control" />
+                </div>
+                <label class="control-label col-md-2">
+                    Observacion
+                </label>
+                <div class="col-md-4">
+                    <input type="text" id="Observacion" name="Observacion" disabled="disabled" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <label id="textlabel">...</label>
+
+        @*Order Details*@
+        <h5 style="margin-top:10px;color:#ff6347">Order Details</h5>
+        <hr />
+        <div class="form-horizontal">
+            <div class="col-md-2 col-lg-offset-4">
+                <a id="addToList" class="btn btn-primary">Add To List</a>
+            </div>
+            <table id="detailsTable" class="table">
+                <thead>
+                    <tr>
+                        <th style="width:30%">Codigo Modelo Producto</th>
+                        <th style="width:20%">Nombre Modelo</th>
+                        <th style="width:15%">Cantidad</th>
+                        <th style="width:25%">Precio Unitario</th>
+                        <th style="width:25%">Observacion</th>
+                        <th style="width:10%"></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <button type="reset" class="btn btn-default">Close</button>
+        <button id="saveOrder" type="button" class="btn btn-danger" onclick="return Add();">Save Order</button>
+    </div>
+</form>
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+
+    <script type="text/javascript">
+        //Show Modal.
+
+
+
+    $(document).ready(function (e) {
+        //function addNewOrder() {
+        //    $("#newOrderModal").show();
+        //}
+        //$("#NewOrder").click(function () {
+        //    $("#newOrderModal").modal();
+        //});
+         $(".d-lg-table-row").on("click", function () {
+             var mates = $(this).attr("id");
+            
+           //  var matesA = $(this).find('input:eq(2)').val();//.find('td:eq(2)').html();
+                //$("#newOrderModal #bodyTableModal").attr("id");
+            // $("#tablaModelo tbody tr").find('td:eq(2)').html()
+             $('#idInventario').val(mates);
+                $('#ModeloProducto').val($(this).find('input:eq(1)').val());
+                $('#PrecioUnitario').val($(this).find('input:eq(2)').val());
+                $('#Observacion').val($(this).find('input:eq(3)').val());
+                $('#textlabel').text(mates);
+         });
+
+        //$("#AgregarTablaRow").click(function () {
+        //    $(".d-lg-table-row").on("click", function () {
+        //        var mates = $(this).attr("id");
+        //        var matesA = $(this).attr("id").find('td:eq(2)').html();
+        //        //$("#newOrderModal #bodyTableModal").attr("id");
+        //        $('#idInventario').val(mates);
+        //        $('#ModeloProducto').val(mates);
+        //        $('#PrecioUnitario').val(mates);
+        //        $('#Observacion').val(mates);
+        //        $('#textlabel').text(mates);
+        //    });
+        //});
+
+        //Add Multiple Order.
+        $("#addToList").click(function (e) {
+            e.preventDefault();
+
+            if ($.trim($("#idInventario").val()) == "" || $.trim($("#stock").val()) == "") return;
+
+            var i = 0;
+
+            var idInventario = $("#idInventario").val(),
+                ModeloProducto = $("#ModeloProducto").val(),
+                stock = $("#stock").val(),
+                PrecioUnitario = $("#PrecioUnitario").val(),
+                Observacion = $("#Observacion").val(),
+                detailsTableBody = $("#detailsTable tbody");
+
+           //<input type="text" id="idInventario" name="idInventario" class="form-control" />
+            //(parseFloat(price) * parseInt(quantity))
+            var productItem = '<tr><td>' + idInventario+'</td><td>'+ModeloProducto+'</td><td>' + stock + '</td><td>' + PrecioUnitario +'</td><td>'+Observacion+'</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+            detailsTableBody.append(productItem);
+            clearItem();
+        });
+
+        //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+        function clearItem() {
+            $("#idInventario").val('');
+            $("#ModeloProducto").val('');
+            $("#stock").val('');
+            $("#PrecioUnitario").val('');
+            $("#Observacion").val('');
+        }
+
+        // After Add A New Order In The List, If You Want, You Can Remove It.
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+
+
+    //    After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(obsT) {
+
+            //var datos{
+
+            //};
+
+
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',//contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Pedidoes/SaveOrder",
+                data: obsT,//data: JSON.stringify(data),
+                success: function (result) {
+                    alert(result);
+                    location.href = '@Url.Action("Index", "Pedidoes", new { area = "" })';
+                   // location.reload();
+                },
+                error: function () {
+                    alert("Error Aqui!")
+                }
+            });
+        }
+
+       // Collect Multiple Order List For Pass To Controller
+        $("#saveOrder").click(function (e) {
+            e.preventDefault();
+
+            var orderArr = [];
+            orderArr.length = 0;
+
+            //$("#detailsTable tbody tr").each( function () {
+            //    orderArr.push({
+            //        InventarioFk: $(this).find('td:eq(0)').html(),
+            //        Cantidad: $(this).find('td:eq(2)').html(),
+            //        Observacion: $(this).find('td:eq(3)').html()
+            //        // amount: $(this).find('td:eq(3)').html()
+            //    });
+            //});
+            $.each($("#detailsTable tbody tr"), function () {
+                orderArr.push({
+                    idInventario: $(this).find('td:eq(0)').html(),
+                    stock: $(this).find('td:eq(2)').html(),
+                    PrecioUnitario: $(this).find('td:eq(3)').html()
+                });
+            });
+
+            //alert($("#FechaEntrega").val());
+            //alert($("#FechaEstimadaEntrega").val());
+           // $("#FechaEntrega").val();
+             var obsT = JSON.stringify({
+                 detalle: orderArr,
+                 FechaEntrega: $("#FechaEntrega").val(),
+                 NumeroCliente: $("#NumeroCliente").val(),
+                 NumeroVendedor: $("#NumeroVendedor").val(),
+                 Observaciones: $("#Observaciones").val()
+
+            });
+            //var data = JSON.stringify({
+            //    observacion: $("#Observacion").val()
+            //    //address: $("#Observacion").val(),
+            //   // detalleAprovisionamiento: orderArr
+            //});
+
+            $.when(saveOrder(obsT)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+//        $("#saveOrder").click(function (e) {
+//            e.preventDefault();
+//            Add();
+//        });
+//        function Add() {
+//    //var res = validate();
+//    //if (res == false) {
+//    //    return false;
+//    //}
+//            var empObj = {
+//        "observacion": $("#Observacion").val()
+//        //Name: $('#Name').val(),
+//        //Age: $('#Age').val(),
+//        //State: $('#State').val(),
+//        //Country: $('#Country').val()
+//    };
+//    $.ajax({
+//        url: "/OrdenAprovisionamientoes/SaveOrder",
+//        data: JSON.stringify(empObj),
+//        type: "POST",
+//        contentType: "application/json;charset=utf-8",
+//        dataType: "json",
+//        success: function (result) {
+//            loadData();
+//            $('#myModal').modal('hide');
+//        },
+//        error: function (errormessage) {
+//            alert(errormessage.responseText);
+//        }
+//    });
+//}
+    });
+    </script>
+}
+
+
