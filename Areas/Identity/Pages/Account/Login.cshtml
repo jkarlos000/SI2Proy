@@ -5,75 +5,93 @@
     ViewData["Title"] = "Iniciar Sesión";
 }
 
-<h1>@ViewData["Title"] - CUSTOM</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use another service to log in.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
+@*<h1>@ViewData["Title"]</h1>*@
+<div class="app-container app-theme-white body-tabs-shadow">
+    <div class="app-container">
+        <div class="h-100">
+            <div class="h-100 no-gutters row">
+                <div class="d-none d-lg-block col-lg-4">
+                    <div class="slider-light">
+                        <div class="slick-slider">
+                            <div>
+                                <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
+                                    <div class="slide-img-bg" style="background-image: url('/assets/images/originals/city.jpg');"></div>
+                                    <div class="slider-content">
+                                        <h3>SI2Proy</h3>
+                                        
+                                        <p>Un Sistema a la vanguardia de su empresa, tenga el control total de su negocio, insumos, etc. Que espera para formar parte!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
+                                    <div class="slide-img-bg" style="background-image: url('/assets/images/dropdown-header/abstract2.jpg');" @*style="background-image: url('assets/images/originals/citynights.jpg');"*@>
+
+                                    </div>
+                                    <div class="slider-content">
+                                        <h3>Escalable, modular, consistente</h3>
+                                        <p>Excluya fácilmente los componentes que no necesita. Estilos ligeros y consistentes basados en Bootstrap en todos los elementos y componentes</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-sunny-morning" tabindex="-1">
+                                    <div class="slide-img-bg" style="background-image: url('/assets/images/originals/citydark.jpg');"></div>
+                                    <div class="slider-content">
+                                        <h3>Complejo pero liviano</h3>
+                                        <p>Hemos incluido muchos componentes que cubren casi todos los casos de uso para su negocio. Su properidad esta de la mano de nosotros.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                }
-            }
-        </section>
+                    </div>
+                </div>
+                <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
+                    <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
+                        <div class="app-logo"></div>
+                        <h4 class="mb-0">
+                            <span class="d-block">Bienvenido nuevamente,</span>
+                            <span>Por favor inicie sesión.</span>
+                        </h4>
+                        <h6 class="mt-3">Aun no esta registrado? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-primary">Registrese ahora!</a></h6>
+                        @*<div class="divider row"></div>*@
+                        <div>
+                            <form id="account" method="post">
+                                <hr />
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label asp-for="Input.Email" class="">Email</label>
+                                            <input asp-for="Input.Email" placeholder="Email here..." type="email" class="form-control">
+                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label asp-for="Input.Password" class="">Contraseña</label>
+                                            <input asp-for="Input.Password" placeholder="Password here..." type="password" class="form-control">
+                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="position-relative form-check">
+                                    <input asp-for="Input.RememberMe" type="checkbox" class="form-check-input">
+                                    <label asp-for="Input.RememberMe" class="form-check-label">@Html.DisplayNameFor(m => m.Input.RememberMe)</label>
+                                </div>
+                                <div class="divider row"></div>
+                                <div class="d-flex align-items-center">
+                                    <div class="ml-auto">
+                                        <a id="forgot-password" asp-page="./ForgotPassword" class="btn-lg btn btn-link">Recuperar Contraseña</a>
+                                        <button type="submit" class="btn btn-primary btn-lg">Iniciar sesión</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

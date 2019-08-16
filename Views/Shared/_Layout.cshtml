@@ -28,7 +28,8 @@
             crossorigin="anonymous"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />*@
     </environment>
-
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/linearicons@1.0.1/dist/web-font/style.min.css">
     <link rel="stylesheet" href="https://unpkg.com/metismenu/dist/metisMenu.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
@@ -1311,24 +1312,13 @@
         }
         else
         {
-            <div>
-                <div class="container">
+            @*<div class="container">
                     <partial name="_CookieConsentPartial" />
                     <main role="main" class="pb-3">
-
-                        <h1>Bienvenido, esta siendo redireccionado ...</h1>
-                        @*@Redirect("/Identity/Account/Login");*@
-                        @*<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>*@
                         @RenderBody()
                     </main>
-                </div>
-            </div>
-            <script type="text/javascript">
-                function redireccionar() {
-                    window.locationf = "http://www.cristalab.com";
-                }
-                setTimeout("redireccionar()", 5000); //tiempo expresado en milisegundos
-            </script>
+                </div>*@
+            @RenderBody()
         }
     }
 
@@ -1366,7 +1356,7 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-<script>
+@*<script>
     $(document).ready(function () {
         $('.dropdown-submenu a.test').on("click", function (e) {
             $(this).next('ul').toggle();
@@ -1374,4 +1364,4 @@
             e.preventDefault();
         });
     });
-</script>
+</script>*@
